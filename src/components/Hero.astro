@@ -1,0 +1,78 @@
+---
+import { ACQUISITION_MAILTO, CF_IMAGES, SITE } from '../config/site';
+import AcquisitionCTA from './AcquisitionCTA.astro';
+import CloudflareImage from './CloudflareImage.astro';
+---
+
+<section class="relative overflow-hidden warm-bg border-b border-warm">
+  <!-- Hero Visual -->
+  <div class="w-full px-4 sm:px-6 pt-6 pb-6">
+    <div
+      class="max-w-screen-xl mx-auto rounded-3xl overflow-hidden border border-[#EDE4D7] shadow-lg shadow-[#2D5A4A]/5"
+    >
+      <CloudflareImage
+        src={CF_IMAGES.hero}
+        alt="wax.contact — Premium global domain for professional hair removal and waxing services"
+        width={1920}
+        height={1080}
+        loading="eager"
+        fetchpriority="high"
+        class="w-full h-auto object-cover aspect-[21/9] sm:aspect-[2.4/1] min-h-[200px] sm:min-h-[260px] md:min-h-[340px]"
+      />
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-6 pt-12 pb-20 md:pt-16 md:pb-24 text-center">
+    <!-- Global Badge -->
+    <div class="inline-flex items-center gap-x-2 mb-6">
+      <div class="global-badge flex items-center gap-x-2 px-5 py-1.5 rounded-2xl text-sm font-bold tracking-[1px]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z" clip-rule="evenodd" />
+        </svg>
+        <span>GLOBAL • TIMELESS • UNIVERSAL</span>
+      </div>
+    </div>
+
+    <h1 class="domain-name tracking-tighter mb-4">wax.contact</h1>
+
+    <p class="max-w-2xl mx-auto text-2xl md:text-3xl font-semibold tracking-tight text-forest mb-6">
+      The global standard for<br class="hidden md:block" /> professional hair removal.
+    </p>
+
+    <p class="max-w-lg mx-auto text-lg text-muted mb-10">
+      A powerful, modern .contact domain that positions your brand as the trusted worldwide connection for expert waxing and epilation.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <AcquisitionCTA
+        variant="primary"
+        size="lg"
+        label="Inquire to Acquire"
+        class="!text-lg w-full sm:w-auto !shadow-lg !shadow-[#2D5A4A]/20 !rounded-3xl"
+      />
+      <a
+        href="#why"
+        class="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 border border-[#D4C9B8] hover:bg-white text-forest font-semibold text-lg rounded-3xl transition-all"
+      >
+        Explore the Opportunity
+      </a>
+    </div>
+
+    <div class="mt-8 flex items-center justify-center gap-x-6 text-sm text-[#6B6B6B]">
+      <div class="flex items-center gap-x-1.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-forest" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+        </svg>
+        <span>Global brand potential</span>
+      </div>
+      <div class="flex items-center gap-x-1.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-forest" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+        </svg>
+        <span>Modern .contact TLD</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[1px] bg-gradient-to-r from-transparent via-[#D4C9B8] to-transparent"></div>
+</section>

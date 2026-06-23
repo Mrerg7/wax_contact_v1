@@ -1,0 +1,47 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+
+const {
+  src,
+  alt,
+  width = 1200,
+  height = 630,
+  class: className = '',
+  loading = 'lazy',
+  fetchpriority = 'auto',
+} = Astro.props;
+
+/**
+ * Use the Cloudflare Images named variant URL as-is.
+ * Flexible variants (w=, h=) return 403 unless enabled on the account.
+ */
+function resolveCfImageUrl(base: string): string {
+  const match = base.match(
+    /^https:\/\/imagedelivery\.net\/([^/]+)\/([^/]+)(?:\/([^/]+))?$/,
+  );
+  if (!match) return base;
+  const [, account, id, variant = 'public'] = match;
+  return `https://imagedelivery.net/${account}/${id}/${variant}`;
+}
+
+const imageSrc = resolveCfImageUrl(src);
+---
+
+<img
+  src={imageSrc}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  fetchpriority={fetchpriority}
+  decoding="async"
+  class={className}
+/>

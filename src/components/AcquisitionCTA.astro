@@ -1,0 +1,51 @@
+---
+import { ACQUISITION_MAILTO, SITE } from '../config/site';
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'forest' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  label?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  label = 'Acquire wax.contact',
+} = Astro.props;
+
+const sizeClasses = {
+  sm: 'px-6 py-2.5 text-sm',
+  md: 'px-10 py-4 text-base',
+  lg: 'px-14 py-5 text-xl',
+};
+
+const variantClasses = {
+  primary:
+    'bg-[#2D5A4A] hover:bg-[#1E3A2F] text-white font-bold shadow-lg shadow-[#2D5A4A]/20',
+  secondary:
+    'border border-[#D4C9B8] hover:bg-white text-[#2D5A4A] font-semibold',
+  forest:
+    'bg-gradient-to-r from-[#2D5A4A] to-[#1E3A2F] text-white font-bold shadow-[0_0_40px_rgba(45,90,74,0.3)] hover:scale-[1.015] active:scale-[0.985]',
+  outline:
+    'border-2 border-[#2D5A4A] text-[#2D5A4A] font-bold hover:bg-[#2D5A4A] hover:text-white',
+};
+
+const classes = [
+  'inline-flex items-center justify-center gap-x-3 rounded-2xl transition-all active:scale-[0.985]',
+  sizeClasses[size],
+  variantClasses[variant],
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<a href={ACQUISITION_MAILTO} class={classes} aria-label={`${label} — email ${SITE.email}`}>
+  <span>{label}</span>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+  </svg>
+</a>

@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --color-warm-cream: #F8F1E9;
+  --color-dark: #2D2D2D;
+  --color-forest: #2D5A4A;
+  --color-terracotta: #B85C38;
+  --color-border: #EDE4D7;
+  --color-muted: #5C5C5C;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-[var(--color-dark)] antialiased overflow-x-hidden;
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .heading-serif {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .domain-name {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--color-dark);
+    font-family: var(--font-display);
+  }
+
+  .warm-bg {
+    background-color: var(--color-warm-cream);
+  }
+
+  .text-forest {
+    color: var(--color-forest);
+  }
+
+  .bg-forest {
+    background-color: var(--color-forest);
+  }
+
+  .text-terracotta {
+    color: var(--color-terracotta);
+  }
+
+  .border-warm {
+    border-color: var(--color-border);
+  }
+
+  .modern-pill {
+    background: rgba(184, 92, 56, 0.08);
+    color: var(--color-terracotta);
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+  }
+
+  .global-badge {
+    background: linear-gradient(90deg, #2D5A4A, #1E3A2F);
+    color: white;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .value-card {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .value-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(45, 90, 74, 0.1), 0 8px 10px -6px rgba(45, 90, 74, 0.08);
+  }
+
+  .use-case-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .use-case-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(45, 90, 74, 0.3);
+  }
+
+  .nav-scrolled {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 1px 0 0 rgba(45, 90, 74, 0.06);
+  }
+
+  .footer-cta-glow {
+    background: radial-gradient(ellipse at center, rgba(45, 90, 74, 0.08) 0%, transparent 70%);
+  }
+
+  .cta-dark {
+    background: linear-gradient(135deg, #2D2D2D, #1a1a1a);
+  }
+
+  .gradient-forest {
+    background: linear-gradient(135deg, #2D5A4A, #1E3A2F);
+  }
+
+  .section-header {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    font-family: var(--font-display);
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      font-size: 2.75rem;
+      line-height: 1.15;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+---
+import { ACQUISITION_MAILTO, SITE } from '../config/site';
+import AcquisitionCTA from './AcquisitionCTA.astro';
+---
+
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-screen-xl mx-auto px-6 py-5 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-x-3 group" aria-label="wax.contact home">
+      <div class="w-9 h-9 bg-[#2D5A4A] rounded-xl flex items-center justify-center">
+        <span class="text-white font-bold text-xl tracking-tighter">W</span>
+      </div>
+      <span class="font-semibold text-2xl tracking-tight group-hover:text-forest transition-colors">
+        <span class="text-dark">wax</span><span class="text-forest">.contact</span>
+      </span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+      <a href="#why" class="text-forest hover:text-dark transition-colors">Why This Domain</a>
+      <a href="#heritage" class="text-forest hover:text-dark transition-colors">Heritage &amp; Market</a>
+      <a href="#use-cases" class="text-forest hover:text-dark transition-colors">Global Use Cases</a>
+    </div>
+
+    <div class="flex items-center gap-x-3 sm:gap-x-4">
+      <a
+        href="#acquire"
+        class="hidden sm:inline-flex px-6 py-2.5 text-sm font-semibold rounded-full border border-[#D4C9B8] hover:bg-[#2D5A4A] hover:text-white hover:border-[#2D5A4A] transition-all"
+      >
+        Make an Offer
+      </a>
+      <AcquisitionCTA variant="primary" size="sm" label="Acquire Now" class="!rounded-2xl !px-5 sm:!px-7 !py-2.5 !text-sm" />
+    </div>
+  </div>
+</nav>
+
+<script>
+  function initNavbar() {
+    const nav = document.getElementById('nav');
+    if (!nav) return;
+
+    const onScroll = () => {
+      if (window.scrollY > 55) {
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-scrolled');
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  initNavbar();
+  document.addEventListener('astro:page-load', initNavbar);
+</script>
