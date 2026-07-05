@@ -1,33 +1,82 @@
 ---
-import { ACQUISITION_MAILTO, SITE } from '../config/site';
 import AcquisitionCTA from './AcquisitionCTA.astro';
+
+const navLinks = [
+  { href: '#why', label: 'Why This Domain' },
+  { href: '#heritage', label: 'Heritage & Market' },
+  { href: '#use-cases', label: 'Global Use Cases' },
+];
 ---
 
 <nav id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-  <div class="max-w-screen-xl mx-auto px-6 py-5 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-x-3 group" aria-label="wax.contact home">
-      <div class="w-9 h-9 bg-[#2D5A4A] rounded-xl flex items-center justify-center">
-        <span class="text-white font-bold text-xl tracking-tighter">W</span>
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-3">
+    <a href="/" class="flex items-center gap-x-2 sm:gap-x-3 group min-w-0" aria-label="wax.contact home">
+      <div class="w-8 h-8 sm:w-9 sm:h-9 bg-[#2D5A4A] rounded-xl flex items-center justify-center shrink-0">
+        <span class="text-white font-bold text-lg sm:text-xl tracking-tighter">W</span>
       </div>
-      <span class="font-semibold text-2xl tracking-tight group-hover:text-forest transition-colors">
+      <span class="font-semibold text-lg sm:text-2xl tracking-tight group-hover:text-forest transition-colors truncate">
         <span class="text-dark">wax</span><span class="text-forest">.contact</span>
       </span>
     </a>
 
     <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
-      <a href="#why" class="text-forest hover:text-dark transition-colors">Why This Domain</a>
-      <a href="#heritage" class="text-forest hover:text-dark transition-colors">Heritage &amp; Market</a>
-      <a href="#use-cases" class="text-forest hover:text-dark transition-colors">Global Use Cases</a>
+      {navLinks.map((link) => (
+        <a href={link.href} class="text-forest hover:text-dark transition-colors">
+          {link.label}
+        </a>
+      ))}
     </div>
 
-    <div class="flex items-center gap-x-3 sm:gap-x-4">
+    <div class="flex items-center gap-x-2 sm:gap-x-4 shrink-0">
       <a
         href="#acquire"
-        class="hidden sm:inline-flex px-6 py-2.5 text-sm font-semibold rounded-full border border-[#D4C9B8] hover:bg-[#2D5A4A] hover:text-white hover:border-[#2D5A4A] transition-all"
+        class="hidden sm:inline-flex min-h-11 items-center px-5 sm:px-6 py-2.5 text-sm font-semibold rounded-full border border-[#D4C9B8] hover:bg-[#2D5A4A] hover:text-white hover:border-[#2D5A4A] transition-all"
       >
         Make an Offer
       </a>
-      <AcquisitionCTA variant="primary" size="sm" label="Acquire Now" class="!rounded-2xl !px-5 sm:!px-7 !py-2.5 !text-sm" />
+      <AcquisitionCTA
+        variant="primary"
+        size="sm"
+        label="Acquire Now"
+        class="!rounded-2xl !px-4 sm:!px-7 !py-2.5 !text-sm min-h-11"
+      />
+      <button
+        id="menu-toggle"
+        type="button"
+        class="md:hidden inline-flex items-center justify-center min-h-11 min-w-11 rounded-xl border border-[#D4C9B8] text-forest hover:bg-[#F8F1E9] transition-colors"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open navigation menu"
+      >
+        <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+        </svg>
+        <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden border-t border-warm bg-white/98 backdrop-blur-md"
+  >
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 flex flex-col gap-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="mobile-nav-link min-h-11 flex items-center px-3 rounded-xl text-forest font-medium hover:bg-[#F8F1E9] transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="#acquire"
+        class="mobile-nav-link min-h-11 flex items-center px-3 rounded-xl text-forest font-medium hover:bg-[#F8F1E9] transition-colors sm:hidden"
+      >
+        Make an Offer
+      </a>
     </div>
   </div>
 </nav>
@@ -35,6 +84,11 @@ import AcquisitionCTA from './AcquisitionCTA.astro';
 <script>
   function initNavbar() {
     const nav = document.getElementById('nav');
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+
     if (!nav) return;
 
     const onScroll = () => {
@@ -47,6 +101,29 @@ import AcquisitionCTA from './AcquisitionCTA.astro';
 
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    if (!menuToggle || !mobileMenu || !iconOpen || !iconClose) return;
+
+    const setMenuOpen = (open: boolean) => {
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      mobileMenu.classList.toggle('hidden', !open);
+      iconOpen.classList.toggle('hidden', open);
+      iconClose.classList.toggle('hidden', !open);
+    };
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+      setMenuOpen(!isOpen);
+    });
+
+    mobileMenu.querySelectorAll('.mobile-nav-link').forEach((link) => {
+      link.addEventListener('click', () => setMenuOpen(false));
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) setMenuOpen(false);
+    });
   }
 
   initNavbar();

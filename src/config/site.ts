@@ -12,9 +12,9 @@ export const SITE = {
 } as const;
 
 export const CF_IMAGES = {
-  hero: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/18f1a288-7292-41f3-9a79-7b086e8f7700/public',
+  hero: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/2d69ff0f-ac7d-4792-e812-1912f6f10900/public',
   accountHash: '-sPAUAWeA405NiWJ0SNIQA',
-  imageId: '18f1a288-7292-41f3-9a79-7b086e8f7700',
+  imageId: '2d69ff0f-ac7d-4792-e812-1912f6f10900',
 } as const;
 
 export const ACQUISITION_MAILTO = `mailto:${SITE.email}?subject=${encodeURIComponent('Acquisition Inquiry: wax.contact')}&body=${encodeURIComponent('Hello,\n\nI am interested in acquiring wax.contact. Please share details and next steps.\n\nBest regards,')}`;
