@@ -14,7 +14,13 @@ const {
   ogImage = CF_IMAGES.hero,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, SITE.url);
+const pathname =
+  Astro.url.pathname === '/'
+    ? '/'
+    : Astro.url.pathname.endsWith('/')
+      ? Astro.url.pathname
+      : `${Astro.url.pathname}/`;
+const canonicalURL = new URL(pathname, SITE.url);
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, SITE.url).href;
 
 const structuredData = {

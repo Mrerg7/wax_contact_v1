@@ -3,7 +3,7 @@ export const SITE = {
   title: 'wax.contact • Premium Global Domain for Sale | Professional Hair Removal',
   description:
     'Own wax.contact — the definitive global domain for professional waxing, epilation, and hair removal. A modern .contact TLD that positions your brand as the trusted worldwide connection for expert hair removal services.',
-  url: 'https://wax.contact',
+  url: 'https://wax.contact/',
   locale: 'en_US',
   email: 'sales@desertrich.com',
   location: 'Phoenix, Arizona',
