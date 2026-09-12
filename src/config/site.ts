@@ -14,10 +14,23 @@ export const SITE = {
   priceFormatted: '$100,000',
 } as const;
 
+export const CF_STREAM = {
+  customerCode: 'wa9cpywo3l4jte5c',
+  videoId: 'ca3aaca0311e01acf5cde53acc603af7',
+  /** Intrinsic Stream embed aspect ratio (padding-top %) */
+  aspectPaddingPercent: 54.32098765432099,
+  get poster() {
+    return `https://customer-${this.customerCode}.cloudflarestream.com/${this.videoId}/thumbnails/thumbnail.jpg?time=&height=600`;
+  },
+  get iframeSrc() {
+    const poster = encodeURIComponent(this.poster);
+    return `https://customer-${this.customerCode}.cloudflarestream.com/${this.videoId}/iframe?muted=true&loop=true&autoplay=true&poster=${poster}&controls=false`;
+  },
+} as const;
+
+/** Poster still used for Open Graph / Twitter cards */
 export const CF_IMAGES = {
-  hero: 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/744a5289-0993-4660-5cd8-a41951b2fb00/public',
-  accountHash: '-sPAUAWeA405NiWJ0SNIQA',
-  imageId: '744a5289-0993-4660-5cd8-a41951b2fb00',
+  hero: CF_STREAM.poster,
 } as const;
 
 export const ACQUISITION_MAILTO = `mailto:${SITE.email}?subject=${encodeURIComponent('Acquisition Inquiry: wax.contact')}&body=${encodeURIComponent('Hello,\n\nI am interested in acquiring wax.contact. Please share details and next steps.\n\nBest regards,')}`;

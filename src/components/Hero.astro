@@ -1,25 +1,24 @@
 ---
-import { CF_IMAGES } from '../config/site';
+import { CF_STREAM } from '../config/site';
 import AcquisitionCTA from './AcquisitionCTA.astro';
-import CloudflareImage from './CloudflareImage.astro';
 ---
 
 <section class="relative overflow-hidden warm-bg border-b border-warm">
-  <!-- Hero Visual: full-image looping magnify / Ken Burns zoom -->
+  <!-- Hero Visual: Cloudflare Stream looping video -->
   <div class="w-full px-4 sm:px-6 pt-4 sm:pt-6 pb-4 sm:pb-6">
     <div
-      class="hero-magnify max-w-screen-xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-[#EDE4D7] shadow-lg shadow-[#2D5A4A]/5"
+      class="hero-stream max-w-screen-xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-[#EDE4D7] shadow-lg shadow-[#2D5A4A]/5"
     >
-      <CloudflareImage
-        src={CF_IMAGES.hero}
-        alt="wax.contact — Premium global domain for professional hair removal and waxing services"
-        width={1366}
-        height={745}
-        loading="eager"
-        fetchpriority="high"
-        sizes="(max-width: 640px) 100vw, (max-width: 1280px) 100vw, 1280px"
-        class="hero-magnify__image w-full h-auto object-cover aspect-[4/3] sm:aspect-video"
-      />
+      <div class="hero-stream__frame" style={`padding-top: ${CF_STREAM.aspectPaddingPercent}%`}>
+        <iframe
+          src={CF_STREAM.iframeSrc}
+          title="wax.contact hero video"
+          loading="eager"
+          class="hero-stream__iframe"
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
   </div>
 
