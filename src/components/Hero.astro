@@ -1,14 +1,15 @@
 ---
-import { ACQUISITION_MAILTO, CF_IMAGES, SITE } from '../config/site';
+import { CF_IMAGES } from '../config/site';
 import AcquisitionCTA from './AcquisitionCTA.astro';
 import CloudflareImage from './CloudflareImage.astro';
 ---
 
 <section class="relative overflow-hidden warm-bg border-b border-warm">
-  <!-- Hero Visual -->
+  <!-- Hero Visual with looping magnifier -->
   <div class="w-full px-4 sm:px-6 pt-4 sm:pt-6 pb-4 sm:pb-6">
     <div
-      class="max-w-screen-xl mx-auto rounded-3xl overflow-hidden border border-[#EDE4D7] shadow-lg shadow-[#2D5A4A]/5"
+      class="hero-magnify max-w-screen-xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-[#EDE4D7] shadow-lg shadow-[#2D5A4A]/5"
+      style={`--hero-image: url('${CF_IMAGES.hero}')`}
     >
       <CloudflareImage
         src={CF_IMAGES.hero}
@@ -17,9 +18,13 @@ import CloudflareImage from './CloudflareImage.astro';
         height={745}
         loading="eager"
         fetchpriority="high"
-        sizes="100vw"
-        class="w-full h-auto object-cover aspect-[4/3] sm:aspect-video"
+        sizes="(max-width: 640px) 100vw, (max-width: 1280px) 100vw, 1280px"
+        class="hero-magnify__image w-full h-auto object-cover aspect-[4/3] sm:aspect-video"
       />
+      <div class="hero-magnify__lens" aria-hidden="true">
+        <span class="hero-magnify__rim"></span>
+        <span class="hero-magnify__handle"></span>
+      </div>
     </div>
   </div>
 
@@ -53,7 +58,7 @@ import CloudflareImage from './CloudflareImage.astro';
       />
       <a
         href="#why"
-        class="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 border border-[#D4C9B8] hover:bg-white text-forest font-semibold text-lg rounded-3xl transition-all"
+        class="inline-flex items-center justify-center w-full sm:w-auto min-h-12 px-8 py-4 border border-[#D4C9B8] hover:bg-white text-forest font-semibold text-lg rounded-3xl transition-all"
       >
         Explore the Opportunity
       </a>
@@ -77,3 +82,60 @@ import CloudflareImage from './CloudflareImage.astro';
 
   <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[1px] bg-gradient-to-r from-transparent via-[#D4C9B8] to-transparent"></div>
 </section>
+
+<script>
+  function initHeroMagnifier() {
+    const root = document.querySelector<HTMLElement>('.hero-magnify');
+    const lens = document.querySelector<HTMLElement>('.hero-magnify__lens');
+    if (!root || !lens) return;
+
+    const syncBackground = () => {
+      const { width, height } = root.getBoundingClientRect();
+      if (width <= 0 || height <= 0) return;
+
+      const zoom = window.matchMedia('(max-width: 640px)').matches ? 1.85 : 2.25;
+      const lensSize = lens.offsetWidth || 120;
+      const x = lens.offsetLeft;
+      const y = lens.offsetTop;
+      const cx = x + lensSize / 2;
+      const cy = y + lensSize / 2;
+
+      lens.style.backgroundSize = `${width * zoom}px ${height * zoom}px`;
+      lens.style.backgroundPosition = `${-(cx * zoom - lensSize / 2)}px ${-(cy * zoom - lensSize / 2)}px`;
+    };
+
+    let frame = 0;
+    const tick = () => {
+      syncBackground();
+      frame = requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      cancelAnimationFrame(frame);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        lens.style.animation = 'none';
+        lens.style.left = '18%';
+        lens.style.top = '28%';
+        syncBackground();
+        return;
+      }
+      frame = requestAnimationFrame(tick);
+    };
+
+    start();
+
+    const resizeObserver = new ResizeObserver(() => syncBackground());
+    resizeObserver.observe(root);
+
+    window.addEventListener(
+      'resize',
+      () => {
+        start();
+      },
+      { passive: true },
+    );
+  }
+
+  initHeroMagnifier();
+  document.addEventListener('astro:page-load', initHeroMagnifier);
+</script>

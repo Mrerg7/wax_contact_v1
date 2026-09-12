@@ -59,13 +59,13 @@ const structuredData = {
       offers: {
         '@type': 'Offer',
         availability: 'https://schema.org/InStock',
-        price: '65000.00',
+        price: String(SITE.price),
         priceCurrency: 'USD',
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '65000.00',
-          minPrice: 35000,
-          maxPrice: 65000,
+          price: String(SITE.price),
+          minPrice: SITE.price,
+          maxPrice: SITE.price,
           priceCurrency: 'USD',
         },
         seller: { '@id': `${SITE.url}/#organization` },

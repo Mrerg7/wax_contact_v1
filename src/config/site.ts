@@ -9,6 +9,9 @@ export const SITE = {
   location: 'Phoenix, Arizona',
   lastUpdated: '2026-06-22',
   googleSiteVerification: 'cU-3eQvfs0UdhThxl1rlp6MGvHU-TVPNlYlBdWb81Tg',
+  /** Asking price shown in the footer acquisition block */
+  price: 100_000,
+  priceFormatted: '$100,000',
 } as const;
 
 export const CF_IMAGES = {
