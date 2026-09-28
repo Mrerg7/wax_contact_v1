@@ -5,16 +5,20 @@ import Hero from '../components/Hero.astro';
 import WhySection from '../components/WhySection.astro';
 import HeritageSection from '../components/HeritageSection.astro';
 import UseCasesSection from '../components/UseCasesSection.astro';
+import FaqSection from '../components/FaqSection.astro';
 import Footer from '../components/Footer.astro';
+import StickyCta from '../components/StickyCta.astro';
 ---
 
 <BaseLayout>
   <Nav />
-  <main class="pt-[4.5rem] sm:pt-[5.25rem]">
+  <main id="main">
     <Hero />
     <WhySection />
     <HeritageSection />
     <UseCasesSection />
+    <FaqSection />
   </main>
   <Footer />
+  <StickyCta />
 </BaseLayout>

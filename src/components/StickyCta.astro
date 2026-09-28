@@ -1,0 +1,45 @@
+---
+import { SITE } from '../config/site';
+import AcquisitionCTA from './AcquisitionCTA.astro';
+---
+
+<div
+  id="sticky-cta"
+  class="fixed bottom-0 inset-x-0 z-40 lg:hidden sticky-cta border-t border-[var(--color-line)] bg-[var(--color-paper)]/95 backdrop-blur-md translate-y-full transition-transform duration-300 pb-[env(safe-area-inset-bottom)]"
+>
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <div class="min-w-0">
+      <p class="font-display text-base tracking-tight truncate">wax.contact</p>
+      <p class="text-xs text-[var(--color-muted)]">{SITE.priceFormatted} · for sale</p>
+    </div>
+    <AcquisitionCTA variant="primary" size="sm" label="Buy" class="!rounded-lg shrink-0" />
+  </div>
+</div>
+
+<script>
+  function initStickyCta() {
+    const bar = document.getElementById('sticky-cta');
+    const acquire = document.getElementById('acquire');
+    if (!bar) return;
+
+    const update = () => {
+      const pastHero = window.scrollY > window.innerHeight * 0.55;
+      let nearFooter = false;
+      if (acquire) {
+        const rect = acquire.getBoundingClientRect();
+        nearFooter = rect.top < window.innerHeight * 0.85;
+      }
+      const show = pastHero && !nearFooter;
+      bar.classList.toggle('translate-y-full', !show);
+      bar.classList.toggle('translate-y-0', show);
+      document.body.style.paddingBottom = show ? `${bar.offsetHeight}px` : '';
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  initStickyCta();
+  document.addEventListener('astro:page-load', initStickyCta);
+</script>

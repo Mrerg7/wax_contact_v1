@@ -1,5 +1,5 @@
 ---
-import { CF_IMAGES, SITE } from '../config/site';
+import { CF_IMAGES, FAQ, SITE } from '../config/site';
 import '../styles/global.css';
 
 interface Props {
@@ -28,16 +28,16 @@ const structuredData = {
   '@graph': [
     {
       '@type': 'WebSite',
-      '@id': `${SITE.url}/#website`,
+      '@id': `${SITE.url}#website`,
       url: SITE.url,
       name: SITE.name,
       description: SITE.description,
       inLanguage: 'en-US',
-      publisher: { '@id': `${SITE.url}/#organization` },
+      publisher: { '@id': `${SITE.url}#organization` },
     },
     {
       '@type': 'Organization',
-      '@id': `${SITE.url}/#organization`,
+      '@id': `${SITE.url}#organization`,
       name: SITE.name,
       url: SITE.url,
       email: SITE.email,
@@ -47,29 +47,38 @@ const structuredData = {
         addressRegion: 'AZ',
         addressCountry: 'US',
       },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        email: SITE.email,
+        contactType: 'sales',
+        availableLanguage: ['English'],
+      },
     },
     {
       '@type': 'Product',
-      '@id': `${SITE.url}/#domain`,
+      '@id': `${SITE.url}#domain`,
       name: 'wax.contact Premium Domain',
       description:
-        'Premium short domain for professional waxing and hair removal — the global standard. Available for acquisition.',
+        'Premium short domain for professional waxing and hair removal — available for acquisition at $100,000.',
       url: SITE.url,
       category: 'Domain Name',
+      sku: 'wax.contact',
+      brand: {
+        '@type': 'Brand',
+        name: SITE.name,
+      },
+      image: ogImageUrl,
       offers: {
         '@type': 'Offer',
+        '@id': `${SITE.url}#offer`,
         availability: 'https://schema.org/InStock',
         price: String(SITE.price),
         priceCurrency: 'USD',
-        priceSpecification: {
-          '@type': 'PriceSpecification',
-          price: String(SITE.price),
-          minPrice: SITE.price,
-          maxPrice: SITE.price,
-          priceCurrency: 'USD',
-        },
-        seller: { '@id': `${SITE.url}/#organization` },
-        url: `mailto:${SITE.email}`,
+        url: SITE.url,
+        priceValidUntil: '2027-12-31',
+        seller: { '@id': `${SITE.url}#organization` },
+        itemCondition: 'https://schema.org/NewCondition',
+        acceptedPaymentMethod: ['https://schema.org/ByBankTransferInAdvance'],
         shippingDetails: {
           '@type': 'OfferShippingDetails',
           shippingRate: {
@@ -109,34 +118,6 @@ const structuredData = {
             'Domain purchases are covered by escrow protection. Returns accepted within 7 days if transfer has not been fully completed.',
         },
       },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '5',
-        bestRating: '5',
-        worstRating: '1',
-        ratingCount: 1,
-        reviewCount: 1,
-      },
-      review: {
-        '@type': 'Review',
-        reviewRating: {
-          '@type': 'Rating',
-          ratingValue: '5',
-          bestRating: '5',
-          worstRating: '1',
-        },
-        author: {
-          '@type': 'Organization',
-          name: SITE.name,
-        },
-        reviewBody:
-          'A rare, high-value .contact domain at the intersection of professional beauty and universal recognition. Instantly ownable global brand equity.',
-      },
-      brand: {
-        '@type': 'Brand',
-        name: SITE.name,
-      },
-      image: ogImageUrl,
     },
     {
       '@type': 'WebPage',
@@ -144,10 +125,38 @@ const structuredData = {
       url: canonicalURL.href,
       name: title,
       description,
-      isPartOf: { '@id': `${SITE.url}/#website` },
-      about: { '@id': `${SITE.url}/#domain` },
+      isPartOf: { '@id': `${SITE.url}#website` },
+      about: { '@id': `${SITE.url}#domain` },
       inLanguage: 'en-US',
       dateModified: SITE.lastUpdated,
+      primaryImageOfPage: {
+        '@type': 'ImageObject',
+        url: ogImageUrl,
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${SITE.url}#faq`,
+      mainEntity: FAQ.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${SITE.url}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: SITE.url,
+        },
+      ],
     },
   ],
 };
@@ -157,13 +166,16 @@ const structuredData = {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="google-site-verification" content={SITE.googleSiteVerification} />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content={SITE.keywords} />
+    <meta name="author" content={SITE.name} />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
     <link rel="canonical" href={canonicalURL.href} />
 
     <!-- Open Graph -->
@@ -177,6 +189,8 @@ const structuredData = {
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="wax.contact — Premium domain for professional hair removal" />
     <meta property="og:locale" content={SITE.locale} />
+    <meta property="product:price:amount" content={String(SITE.price)} />
+    <meta property="product:price:currency" content="USD" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -186,20 +200,33 @@ const structuredData = {
     <meta name="twitter:image:alt" content="wax.contact — Premium domain for professional hair removal" />
 
     <!-- Theme -->
-    <meta name="theme-color" content="#2D5A4A" />
+    <meta name="theme-color" content="#0d5c4d" />
     <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="wax.contact" />
 
     <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
 
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://imagedelivery.net" />
+    <link rel="preconnect" href="https://customer-wa9cpywo3l4jte5c.cloudflarestream.com" />
+    <link rel="dns-prefetch" href="https://customer-wa9cpywo3l4jte5c.cloudflarestream.com" />
   </head>
   <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:shadow"
+    >
+      Skip to content
+    </a>
     <slot />
   </body>
 </html>

@@ -1,15 +1,18 @@
 # wax.contact
 
-Premium domain landing page for **wax.contact** — a global `.contact` domain for professional hair removal and waxing brands.
+Premium domain sales landing page for **[wax.contact](https://wax.contact/)** — a global `.contact` domain for professional hair removal and waxing brands.
 
-Built with Astro, Tailwind CSS v4, and Cloudflare Workers Static Assets.
+Asking price: **$100,000**. Direct owner sale via `sales@desertrich.com`.
+
+Built with Astro, Tailwind CSS v4, and Cloudflare Workers Static Assets (Workers Builds auto-deploys from `main`).
 
 ## Features
 
-- Full-bleed hero with a looping magnifying-glass effect on the hero image
-- Acquisition footer with asking price **$100,000**
-- Mobile-first navigation and responsive sections
-- SEO: Open Graph, Twitter cards, JSON-LD Product schema, sitemap
+- Full-bleed hero with looping Cloudflare Stream video
+- Conversion-focused acquisition form + sticky mobile CTA
+- Mobile-first layout with safe-area support
+- SEO: canonical URLs, Open Graph/Twitter cards, Product + FAQ + Breadcrumb JSON-LD, sitemap, security headers
+- www → apex redirect in the Worker
 
 ## Local development
 
@@ -26,5 +29,7 @@ Open [http://127.0.0.1:43123](http://127.0.0.1:43123).
 npm run build
 npm run deploy   # requires Wrangler auth
 ```
+
+Pushing to `main` on GitHub also triggers Cloudflare Workers Builds for `wax-contact-v1`.
 
 Static output lands in `dist/`.
